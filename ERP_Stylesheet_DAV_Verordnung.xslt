@@ -963,7 +963,7 @@
                         <div class="col-8">
                             <div class="input-container">
                                 <label>Name u. Vorname d. Versicherten</label> <!-- TODO: Titel 22, Vorname 20, Name 21 ?!? -->
-                                <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
+                                <textarea class="text-input height-15mm" rows="auto" readonly="">
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:name/fhir:prefix/@value"/>
                                         <xsl:text> </xsl:text>
@@ -996,7 +996,7 @@
                                 <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                     <label>Postfachanschrift</label>
                                 </xsl:if>
-                                <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
+                                <textarea class="text-input height-15mm" rows="auto" readonly="">
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
                                     </xsl:if>
@@ -1223,7 +1223,7 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Name u. Vorname</label> <!-- Titel (ID 22/55), Name (ID 141/142), Vorname (ID 44/53) -->
-                                <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
+                                <textarea class="text-input height-15mm" rows="auto" readonly="">
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:name/fhir:prefix/@value"/>
                                         <xsl:text disable-output-escaping='yes'> </xsl:text>
@@ -1239,7 +1239,7 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Berufsbezeichnung</label> <!-- (ID 49/58) -->
-                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                <textarea class="text-input" rows="auto" readonly="">
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:qualification/fhir:code/fhir:text/@value"/>
                                 </textarea>
                             </div>
@@ -1353,7 +1353,7 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Einrichtung</label> <!-- Name der Einrichtung (ID 62) -->
-                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                <textarea class="text-input" rows="auto" readonly="">
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
                                     <xsl:text> </xsl:text>
                                 </textarea>
@@ -1364,7 +1364,7 @@
                         <div class="col-10">
                             <div class="input-container">
                                 <label>Straßenadresse</label> <!-- Strassenadresse der Einrichtung (ID 143) -->
-                                <textarea type="text" class="text-input height-15mm" rows="auto" readonly="">
+                                <textarea class="text-input height-15mm" rows="auto" readonly="">
                                     <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text-->
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
                                     <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
@@ -1454,7 +1454,7 @@
                                 <div class="col-12">
                                     <div class="input-container">
                                         <label>Name u. Vorname</label> <!-- Titel (ID 22/55), Name (ID 141/142), Vorname (ID 44/53) -->
-                                        <textarea type="text" class="text-input" rows="auto" readonly="">
+                                        <textarea class="text-input" rows="auto" readonly="">
                                             <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:prefix/@value"/>
                                             <xsl:text disable-output-escaping='yes'> </xsl:text>
                                             <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:name/fhir:given/@value"/>
@@ -1468,7 +1468,7 @@
                                 <div class="col-12">
                                     <div class="input-container">
                                         <label>Berufsbezeichnung</label> <!-- (ID 49/58) -->
-                                        <textarea type="text" class="text-input" rows="auto" readonly="">
+                                        <textarea class="text-input" rows="auto" readonly="">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$attester_id]/fhir:qualification/fhir:code/fhir:text/@value"/>
                                         </textarea>
                                     </div>
@@ -1713,7 +1713,7 @@
                                         <div class="input-container">
                                             <label>Darreichungsform</label>
                                             <xsl:variable name="_dform" select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:coding/fhir:code/@value"/>
-                                            <textarea type="text" class="text-input" rows="auto" readonly="">
+                                            <textarea class="text-input" rows="auto" readonly="">
                                                 <xsl:choose> <!-- S_KBV_DARREICHUNGSFORM  v1.15 Stand: 01.04.2025 -->
                                                     <xsl:when test="$_dform='---'">keine Darreichungsform (</xsl:when>
                                                     <xsl:when test="$_dform='AEO'">Ätherisches Öl (</xsl:when>
@@ -2190,7 +2190,7 @@
                                     <div class="col-4">
                                         <div class="input-container">
                                             <label>Darreichungsform</label> <!-- Darreichungsform Text (ID 104)  => 30 Zeichen -->
-                                            <textarea type="text" class="text-input" rows="auto" readonly="">
+                                            <textarea class="text-input" rows="auto" readonly="">
                                                 <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:text/@value"/>
                                             </textarea>
                                         </div>
@@ -2283,7 +2283,7 @@
                                     <div class="col-12">
                                         <div class="input-container">
                                             <label>Freitext-Verordnung</label>
-                                            <textarea type="text" class="text-input height-20mm" rows="auto" readonly="">
+                                            <textarea class="text-input height-20mm" rows="auto" readonly="">
                                                 <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-18mm border-dotted-t-l&#34; rows=&#34;auto&#34; readonly/&gt;</xsl:text-->
                                                 <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:code/fhir:text/@value"/>
                                                 <!--xsl:text_ disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
@@ -2296,7 +2296,7 @@
                                         <div class="col-12">
                                             <div class="input-container">
                                                 <label>Darreichungsform</label> <!-- Darreichungsform Text (ID 104) => 30 Zeichen -->
-                                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                <textarea class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:text/@value"/>
                                                 </textarea>
                                             </div>
@@ -2377,7 +2377,7 @@
                                         <div class="col-3">
                                             <div class="input-container">
                                                 <label>Darreichungsform</label> <!-- Darreichungsform Text (ID 104) => 30 Zeichen-->
-                                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                <textarea class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:text/@value"/>
                                                 </textarea>
                                             </div>
@@ -2416,7 +2416,7 @@
                                             <div class="col-3">
                                                 <div class="input-container">
                                                     <label>Darreichungsform</label> <!-- ID 132  => 30 Zeichen-->
-                                                    <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                    <textarea class="text-input" rows="auto" readonly="">
                                                         <xsl:value-of select="fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Ingredient_Form']/fhir:valueString/@value"/>
                                                     </textarea>
                                                 </div>
@@ -2463,7 +2463,7 @@
                                         <div class="col-12">
                                             <div class="input-container">
                                                 <label>Herstellungsanweisung</label> <!-- ID 126 -->
-                                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                <textarea class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_CompoundingInstruction']/fhir:valueString/@value"/>
                                                 </textarea>
                                             </div>
@@ -2475,7 +2475,7 @@
                                         <div class="col-12">
                                             <div class="input-container">
                                                 <label>Verpackung</label> <!-- ID 127 -->
-                                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                <textarea class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="//fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Packaging']/fhir:valueString/@value"/>
                                                 </textarea>
                                             </div>
@@ -2495,7 +2495,7 @@
                                                     <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_DosageFlag']/fhir:valueBoolean[@value='true']">
                                                         <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:text/@value">
                                                             <label>Dosierung</label>
-                                                            <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                            <textarea class="text-input" rows="auto" readonly="">
                                                                 <xsl:value-of select="fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:text/@value"/>
                                                             </textarea>
                                                         </xsl:if>
@@ -2510,7 +2510,7 @@
                                             </xsl:if>
                                             <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:patientInstruction/@value">
                                                 <label>Dosierung (Anwendungshinweise)</label> <!-- TODO  Textausgabe?-->
-                                                <textarea type="text" class="text-input" rows="auto" readonly="">
+                                                <textarea class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:patientInstruction/@value"/>
                                                 </textarea>
                                             </xsl:if>
@@ -2530,7 +2530,7 @@
                                 <div class="col">
                                     <div class="input-container">
                                         <label>Abgabehinweise</label> <!-- (ID 105) -->
-                                        <textarea type="text" class="text-input" rows="auto" readonly="">
+                                        <textarea class="text-input" rows="auto" readonly="">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:note/fhir:text/@value"/>
                                         </textarea>
                                     </div>
