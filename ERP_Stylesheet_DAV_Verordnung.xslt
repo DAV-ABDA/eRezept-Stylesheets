@@ -721,8 +721,9 @@
                     <![CDATA[
 						function calcHeight(value) {
                             let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-                            // min-height + lines x line-height + padding + border
-                            let newHeight = 40 + (numberOfLineBreaks * 15) + 15 + 2;
+                            numberOfLineBreaks = Math.max(numberOfLineBreaks, 1)
+
+                            newHeight = 20 + (Math.max(numberOfLineBreaks, Math.round((value.length)/35)) * 25);
                             return newHeight;
                         }
 
@@ -1028,7 +1029,6 @@
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:line/@value"/>
                                     </xsl:if>
-                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
@@ -1072,7 +1072,6 @@
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']">
                                         <xsl:value-of select="//fhir:entry/fhir:resource/fhir:Patient/fhir:address[fhir:type/@value='postal']/fhir:city/@value"/>
                                     </xsl:if>
-                                    <xsl:text> </xsl:text>
                                 </div>
                             </div>
                         </div>
@@ -1380,7 +1379,6 @@
                                 <label>Einrichtung</label> <!-- Name der Einrichtung (ID 62) -->
                                 <textarea id="resize_ta5" class="text-input" rows="auto" readonly="">
                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
-                                    <xsl:text> </xsl:text>
                                 </textarea>
                             </div>
                         </div>
@@ -1390,10 +1388,22 @@
                             <div class="input-container">
                                 <label>Straßenadresse</label> <!-- Strassenadresse der Einrichtung (ID 143) -->
                                 <textarea id="resize_ta6" class="text-input" rows="auto" readonly="">
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;txt-area&#34; type=&#34;text&#34; class=&#34;text-input height-15mm&#34; readonly/&gt;</xsl:text-->
-                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line/@value"/>
-                                    <!--xsl:text disable-output-escaping='yes'>&lt;/textarea&gt;</xsl:text-->
-                                    <xsl:text> </xsl:text>
+                                    <!--xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line/@value"/-->
+                                    <xsl:for-each select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:line">
+                                        <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName']">
+                                            <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName']/fhir:valueString/@value"/>
+                                        </xsl:if>
+                                        <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber']">
+                                            <xsl:text disable-output-escaping='yes'> </xsl:text>
+                                            <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber']/fhir:valueString/@value"/>
+                                        </xsl:if>
+                                        <xsl:if test="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']">
+                                            <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
+                                            <xsl:value-of select="fhir:extension[@url='http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-additionalLocator']/fhir:valueString/@value"/>
+                                            <xsl:text disable-output-escaping='yes'>&#13;&#10;</xsl:text>
+                                        </xsl:if>
+                                    </xsl:for-each>
+
                                 </textarea>
                             </div>
                         </div>
@@ -1413,14 +1423,15 @@
                             <div class="input-container">
                                 <label>PLZ</label> <!-- Postleitzahl (ID 64) -->
                                 <div class="text-input">
-                                    <xsl:choose>
+                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
+                                    <!--xsl:choose>
                                         <xsl:when test="//fhir:entry/fhir:resource/fhir:Organization/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:address[fhir:type/@value='both']/fhir:postalCode/@value"/>
                                         </xsl:when>
                                         <xsl:otherwise>
                                             <xsl:text> </xsl:text>
                                         </xsl:otherwise>
-                                    </xsl:choose>
+                                    </xsl:choose-->
                                 </div>
                             </div>
                         </div>
@@ -1699,10 +1710,10 @@
 
                                             <xsl:choose>
                                                 <xsl:when test="$kategorie=00">
-                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;resize_ta9&#34; type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; readonly/&gt;</xsl:text>
+                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; readonly/&gt;</xsl:text>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea id=&#34;resize_ta9&#34; type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; style=&#34;font-weight: bold&#34; readonly/&gt;</xsl:text>
+                                                    <xsl:text disable-output-escaping='yes'>&lt;textarea type=&#34;text&#34; class=&#34;text-input&#34; rows=&#34;auto&#34; style=&#34;font-weight: bold&#34; readonly/&gt;</xsl:text>
                                                 </xsl:otherwise>
                                             </xsl:choose>
                                             <xsl:choose>

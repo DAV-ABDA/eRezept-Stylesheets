@@ -1,7 +1,6 @@
 <h2 align="center">Stylesheets</h2>
 Zur Darstellung der Inhalte eines elektronischen Datensätzes (FHIR-Instanz) 
-sollen Stylesheets zur vollständigen Visualisierung, in einer einheitlichen Art und Weise,
-genutzt werden.
+sollen diese vom DAV bereitgestellten Stylesheets in einer einheitlichen Art und Weise zur vollständigen Visualisierung insbesondere im Abrechnungskontext betragen.
 
 **Verordnungsdatensatz**    (https://fhir.kbv.de/StructureDefinition/KBV_PR_ERP_Bundle)
 
@@ -31,6 +30,10 @@ genutzt werden.
 
 <span style="color:red"> Die Stylesheets für die technisch korrekte Darstellung der Instanzinhalte wurden mit viel Sorgfalt erstellt.
 Wir sind jederzeit dankbar für Hinweise auf Fehler oder für Verbesserungsvorschläge.</span>
+
+<span style="color:yellow">Das für die Verordnungsprüfung (P4-02) bereitgestellte Stylesheet der KBV ist unter
+https://update.kbv.de/ita-update/DigitaleMuster/ERP/ aktuell -> eRP_Stylesheet_V1.3.zip abrufbar.</span>
+
 
 
 
