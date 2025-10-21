@@ -723,7 +723,7 @@
                             let numberOfLineBreaks = (value.match(/\n/g) || []).length;
                             numberOfLineBreaks = Math.max(numberOfLineBreaks, 1)
 
-                            newHeight = 20 + (Math.max(numberOfLineBreaks, Math.round((value.length)/35)) * 25);
+                            newHeight = 20 + (Math.max(numberOfLineBreaks, Math.round((value.length/35))) * 25);
                             return newHeight;
                         }
 

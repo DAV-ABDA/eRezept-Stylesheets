@@ -1,6 +1,6 @@
 <h2 align="center">Stylesheets</h2>
 Zur Darstellung der Inhalte eines elektronischen Datensätzes (FHIR-Instanz) 
-sollen diese vom DAV bereitgestellten Stylesheets in einer einheitlichen Art und Weise zur vollständigen Visualisierung insbesondere im Abrechnungskontext betragen.
+sollen diese vom DAV bereitgestellten Stylesheets in einer einheitlichen Art und Weise zur vollständigen Visualisierung insbesondere im Abrechnungskontext beitragen.
 
 **Verordnungsdatensatz**    (https://fhir.kbv.de/StructureDefinition/KBV_PR_ERP_Bundle)
 
