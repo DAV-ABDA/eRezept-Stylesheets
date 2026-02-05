@@ -431,7 +431,7 @@
                     :root{
                     --background-color-ges: #F7B8CA; /* M16 -> Farbauswertung Rezeptarten */
                     --border-background-color-ges: #F48BAA; /* M16 -> Farbauswertung Rezeptarten */
-                    --text-color-ges: #d96889;
+                    --text-color-ges: #bf5473;
                     --text-color-inputs: #000000;
                     --background-stripes-color: #e9e9e9;
                     --outter-div-bg-color: #ffffff;
@@ -2611,7 +2611,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.4</b>
+                Stylesheet: <b>v1.5</b>
             </p>
         </div>
 
