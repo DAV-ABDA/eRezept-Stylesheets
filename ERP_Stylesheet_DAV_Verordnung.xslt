@@ -429,9 +429,9 @@
                 <style>
                     /* Internes Stylesheet */
                     :root{
-                    --background-color-ges: #F7B8CA; /* M16 -> Farbauswertung Rezeptarten */
-                    --border-background-color-ges: #F48BAA; /* M16 -> Farbauswertung Rezeptarten */
-                    --text-color-ges: #bf5473;
+                    --background-color-ges: #ffffff; /* #F7B8CA M16 -> Farbauswertung Rezeptarten */
+                    --border-background-color-ges: #F7B8CA; /* #F48BAA M16 -> Farbauswertung Rezeptarten */
+                    --text-color-ges: #EA6769; /* #bf5473; */
                     --text-color-inputs: #000000;
                     --background-stripes-color: #e9e9e9;
                     --outter-div-bg-color: #ffffff;
@@ -541,6 +541,10 @@
 
                     .intern-container{
                         background-color: var(--background-color-int);
+                        padding:2mm;
+                    }
+                    .intern-container2{
+                        background-color: var(--background-color-ges);
                         padding:2mm;
                     }
                     .row{
@@ -723,7 +727,7 @@
                         }
 
 						function formatHeightOfTextarea() {
-							const fields = ['resize_ta1','resize_ta2','resize_ta3','resize_ta4','resize_ta5','resize_ta6','resize_ta7','resize_ta8','resize_ta9','resize_ta10','resize_ta11','resize_ta12','resize_ta13','resize_ta14','resize_ta15','resize_ta16','resize_ta17','resize_ta18','resize_ta19','resize_ta20','resize_ta21','resize_ta22','resize_ta23', 'resize_ta24'];
+							const fields = ['resize_ta1','resize_ta2','resize_ta3','resize_ta4','resize_ta5','resize_ta6','resize_ta7','resize_ta8','resize_ta9','resize_ta10','resize_ta11','resize_ta12','resize_ta13','resize_ta14','resize_ta15','resize_ta16','resize_ta17','resize_ta18','resize_ta19','resize_ta20','resize_ta21','resize_ta22','resize_ta23', 'resize_ta24', 'resize_ta25'];
 							fields.forEach(id => {
 								const el = document.getElementById(id);
 								if (el) {
@@ -921,7 +925,7 @@
                             </div>
                         </div>
                     </xsl:if>
-                    <div class="row g-1"> <!-- TODO: nur wenn angegeben -->
+                    <div class="row g-1"> <!-- nur wenn angegeben? KBV_PR_FOR_Coverage -for-angabeDMPPflicht (Das DMP-Kennzeichen ist nicht vorhanden, dieses ist aber bei den Kostentraegern vom Typ 'GKV', 'BG', 'SKT', 'PKV' oder 'UK' ein Pflichtelement.) -->
                         <div class="col-12">
                             <div class="input-container">
                                 <label>DMP-Kennzeichen</label> <!-- ID 16 -->
@@ -1088,139 +1092,144 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row g-2 margin-top-5">
-                        <!-- Zeile 4 -->
-                        <div class="col-2-5">
-                            <div class="checkbox-container">
-                                <label>Gebühr frei</label> <!-- Zuzahlungsstatus (ID 77) = 1 -->
-                                <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34; value=&#34;coding&#34;</xsl:text>
-                                <xsl:choose>
-                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_StatusCoPayment']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_StatusCoPayment']/fhir:code/@value=1">
-                                        <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                    <div class="row g-1 intern-container"> <!-- Hintergrund2? -->
+                        <div class="row g-2">
+                            <!-- Zeile 4 -->
+                            <div class="col-2-5">
+                                <div class="checkbox-container">
+                                    <label>Gebühr frei</label> <!-- Zuzahlungsstatus (ID 77) = 1 -->
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34; value=&#34;coding&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_StatusCoPayment']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_StatusCoPayment']/fhir:code/@value=1">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
                             </div>
-                        </div> <div class="col-2-5">
-                        <div class="checkbox-container">
-                            <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_BVG']">
-                                <label>BVG</label> <!-- ID 85  -->
-                            </xsl:if>
-                            <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_SER']">
-                                <label>SER</label> <!-- ab v1.3 ID 85 ehemals BVG -->
-                            </xsl:if>
-                            <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                            <xsl:choose>
-                                <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_BVG']/fhir:valueBoolean/@value = 'true'">
-                                    <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
-                                </xsl:when>
-                                <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_SER']/fhir:valueBoolean/@value = 'true'">
-                                    <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text> <!-- Nein -->
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </div>
-                    </div> <div class="col-2-5">
-                        <div class="checkbox-container">
-                            <label>Noctu</label> <!-- (ID 82) -->
-                            <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                            <xsl:choose>
-                                <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_EmergencyServicesFee']/fhir:valueBoolean/@value = 'true'">
-                                    <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text> <!-- Nein -->
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </div>
-                    </div>
-                        <div class="col-2-5">
-                            <div class="checkbox-container">
-                                <label>Impfstoff</label> <!-- ID 84 -->
-                                <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                                <xsl:choose>
-                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Vaccine']/fhir:valueBoolean/@value = 'true'">
-                                        <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text disable-output-escaping='yes'>y/&gt;</xsl:text> <!-- Nein -->
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                            <div class="col-2-5">
+                                <div class="checkbox-container">
+                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_BVG']">
+                                        <label>BVG</label> <!-- ID 85  -->
+                                    </xsl:if>
+                                    <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_SER']">
+                                        <label>SER</label> <!-- ab v1.3 ID 85 ehemals BVG -->
+                                    </xsl:if>
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_BVG']/fhir:valueBoolean/@value = 'true'">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
+                                        </xsl:when>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_SER']/fhir:valueBoolean/@value = 'true'">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text> <!-- Nein -->
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
                             </div>
-                        </div>
-                        <!--div class="col-2">
-                            <div class="checkbox-container">
-                                <label>Spr.St.-Bedarf</label>
-                                <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                                <xsl:choose>
-									<xsl:when test="//fhir:entry/fhir:resource/fhir:SupplyRequest">
-										<xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
-									</xsl:when>
-									<xsl:otherwise>
-										<xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
-									</xsl:otherwise>
-								</xsl:choose>
+                            <div class="col-2-5">
+                                <div class="checkbox-container">
+                                    <label>Noctu</label> <!-- (ID 82) -->
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_EmergencyServicesFee']/fhir:valueBoolean/@value = 'true'">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text> <!-- Nein -->
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
                             </div>
-                        </div-->
-                    </div>
-                    <div class="row g-2">
-                        <div class="col-2-5">
-                            <div class="checkbox-container">
-                                <label>Gebühr pfl.</label> <!-- Zuzahlungsstatus (ID 77) = 0 --> <!-- TODO: = 2 (kuenstliche Befruchtung (Regelung nach § 27a SGB V)) Ausgabe ?!? -->
-                                <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                                <xsl:choose>
-                                    <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_StatusCoPayment']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_StatusCoPayment']/fhir:code/@value=0">
-                                        <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                            <div class="col-2-5">
+                                <div class="checkbox-container">
+                                    <label>Impfstoff</label> <!-- ID 84 -->
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Vaccine']/fhir:valueBoolean/@value = 'true'">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>y/&gt;</xsl:text> <!-- Nein -->
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
                             </div>
+                            <!--div class="col-2">
+                                <div class="checkbox-container">
+                                    <label>Spr.St.-Bedarf</label>
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:SupplyRequest">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
+                            </div-->
                         </div>
-                        <div class="col-2-5">
-                            <div class="checkbox-container"> <!-- Unfallkennzeichen ID 72 -->
-                                <label>Unfall</label> <!-- TODO: Berufskrankheit ?!? -->
-                                <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                                <xsl:choose>
-                                    <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '1'">
-                                        <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                        <div class="row g-2">
+                            <div class="col-2-5">
+                                <div class="checkbox-container">
+                                    <label>Gebühr pfl.</label> <!-- Zuzahlungsstatus (ID 77) = 0 --> <!-- TODO: = 2 (kuenstliche Befruchtung (Regelung nach § 27a SGB V)) Ausgabe ?!? -->
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_StatusCoPayment']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_StatusCoPayment']/fhir:code/@value=0">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
                             </div>
-                        </div> <div class="col-2-5">
-                        <div class="checkbox-container">
-                            <label>Arbeitsunfall</label>
-                            <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                            <xsl:choose>
-                                <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '2'">
-                                    <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                    <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
-                                </xsl:otherwise>
-                            </xsl:choose>
-                        </div>
-                    </div>
-                        <div class="col-3">
-                            <div class="checkbox-container">
-                                <label>Berufskrankheit</label>
-                                <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
-                                <xsl:choose>
-                                    <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '4'">
-                                        <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                        <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
-                                    </xsl:otherwise>
-                                </xsl:choose>
+                            <div class="col-2-5">
+                                <div class="checkbox-container"> <!-- Unfallkennzeichen ID 72 -->
+                                    <label>Unfall</label> <!-- TODO: Berufskrankheit ?!? -->
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '1'">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
+                            </div>
+                            <div class="col-2-5">
+                                <div class="checkbox-container">
+                                    <label>Arbeitsunfall</label>
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '2'">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="checkbox-container">
+                                    <label>Berufskrankheit</label>
+                                    <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                    <xsl:choose>
+                                        <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '4'">
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:text disable-output-escaping='yes'>/&gt;</xsl:text>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2405,9 +2414,9 @@
                                         <div class="col-6">
                                             <div class="input-container">
                                                 <label>Rezepturname</label> <!-- ID 123 -->
-                                                <div class="text-input">
+                                                <textarea id="resize_ta25" class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:Medication/fhir:code/fhir:text/@value"/>
-                                                </div>
+                                                </textarea>
                                             </div>
                                         </div>
                                     </xsl:if>
@@ -2611,18 +2620,18 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.5</b>
+                Stylesheet: <b>v1.6</b>
             </p>
         </div>
 
-        <!-- M16 -> Farbauswertung Rezeptarten -->
+        <!-- Farbauswertung Rezeptarten -->
         <!-- Anpassung ger Hintergrundfarbe (blau) bei PKV oder SEL Kostenträgertyp -->
         <xsl:if test="(//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL')">
             <script>
                 window.onload = () => {
-                document.documentElement.style.setProperty('--background-color-ges', '#99ccff');
-                document.documentElement.style.setProperty('--border-background-color-ges', '#6f94f7');
-                document.documentElement.style.setProperty('--text-color-ges', '#0066cc');
+                document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #99ccff
+                document.documentElement.style.setProperty('--border-background-color-ges', '#99ccff'); //#6f94f7
+                document.documentElement.style.setProperty('--text-color-ges', '#0066cc'); // #0066cc
                 };
             </script>
         </xsl:if>
@@ -2630,23 +2639,44 @@
         <xsl:if test="//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='01'">
             <script>
                 window.onload = () => {
-                    document.documentElement.style.setProperty('--background-color-ges', '#e7f59a');
-                    document.documentElement.style.setProperty('--border-background-color-ges', '#e5f783');
-                    document.documentElement.style.setProperty('--text-color-ges', '#687a04');
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #e7f59a
+                    document.documentElement.style.setProperty('--border-background-color-ges', '#e7f59a'); // #e5f783
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #687a04
+                    document.documentElement.style.setProperty('--outter-div-bg-color', '#F7B8CA');
+                };
+            </script>
+        </xsl:if>
+        <xsl:if test="//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='01' and ((//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL'))">
+            <script>
+                window.onload = () => {
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #e7f59a
+                    document.documentElement.style.setProperty('--border-background-color-ges', '#e7f59a'); // #e5f783
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #687a04
+                    document.documentElement.style.setProperty('--outter-div-bg-color', '#99ccff');
                 };
             </script>
         </xsl:if>
         <!-- Anpassung ger Hintergrundfarbe (weiß) bei T-Rezept -->
-        <xsl:if test="//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='02'">
+        <xsl:if test="(//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='02')">
             <script>
                 window.onload = () => {
-                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff');
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #CC1355 oder #EA6769
                     document.documentElement.style.setProperty('--border-background-color-ges', '#ffffff');
-                    document.documentElement.style.setProperty('--text-color-ges', '#000000');
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #000000
+                    document.documentElement.style.setProperty('--outter-div-bg-color', '#F7B8CA');
                 };
             </script>
         </xsl:if>
-
+        <xsl:if test="(//fhir:entry/fhir:resource/fhir:Medication/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Medication_Category']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Category']/fhir:code/@value='02') and ((//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='PKV') or (//fhir:entry/fhir:resource/fhir:Coverage/fhir:type/fhir:coding/fhir:code/@value='SEL'))">
+            <script>
+                window.onload = () => {
+                    document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #CC1355 oder #EA6769
+                    document.documentElement.style.setProperty('--border-background-color-ges', '#ffffff');
+                    document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #000000
+                    document.documentElement.style.setProperty('--outter-div-bg-color', '#99ccff');
+                };
+            </script>
+        </xsl:if>
     </xsl:template>
 
     <xsl:template match="//fhir:entry/fhir:resource/fhir:MedicationRequest"> <!-- T-Rezept & BtM-->
