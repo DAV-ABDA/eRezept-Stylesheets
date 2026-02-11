@@ -2620,7 +2620,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.6</b>
+                Stylesheet: <b>v1.7</b>
             </p>
         </div>
 
@@ -2640,7 +2640,7 @@
             <script>
                 window.onload = () => {
                     document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #e7f59a
-                    document.documentElement.style.setProperty('--border-background-color-ges', '#e7f59a'); // #e5f783
+                    document.documentElement.style.setProperty('--border-background-color-ges', '#FFF44F'); // #e5f783
                     document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #687a04
                     document.documentElement.style.setProperty('--outter-div-bg-color', '#F7B8CA');
                 };
@@ -2650,7 +2650,7 @@
             <script>
                 window.onload = () => {
                     document.documentElement.style.setProperty('--background-color-ges', '#ffffff'); // #e7f59a
-                    document.documentElement.style.setProperty('--border-background-color-ges', '#e7f59a'); // #e5f783
+                    document.documentElement.style.setProperty('--border-background-color-ges', '#FFF44F'); // #e5f783
                     document.documentElement.style.setProperty('--text-color-ges', '#EA6769'); // #687a04
                     document.documentElement.style.setProperty('--outter-div-bg-color', '#99ccff');
                 };
@@ -2820,7 +2820,7 @@
         <xsl:value-of select="$version"/>
     </xsl:template>
 
-    <xsl:template name="formatDate">
+    <xsl:template name="formatDate"> /* TODO: Was bei fehlender Angabe Tag oder Monat? -> sowie DataAbsentReason ?!? */
         <xsl:param name="date"/>
         <xsl:variable name="yearNum" select="substring ($date, 1, 4)"/>
         <xsl:variable name="monthNum" select="substring ($date, 6, 2)"/>
