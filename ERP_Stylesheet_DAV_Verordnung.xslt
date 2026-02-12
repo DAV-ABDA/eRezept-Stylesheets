@@ -545,7 +545,9 @@
                     }
                     .intern-container2{
                         background-color: var(--background-color-ges);
-                        padding:2mm;
+                        padding:1mm;
+                        margin-top: 1mm;
+                        margin-bottom: 1mm;
                     }
                     .row{
                         padding-top: 0px;
@@ -590,7 +592,7 @@
                     .checkbox-container > label {
                         margin-left: 4px; /* Adjust spacing between checkbox and label */
                         margin-right: 0; /* Remove right margin to ensure consistency */
-                        font-size: 8px;
+                        font-size: 10px; /* font-weight: bold; */
                         width:100%;
                     }
 
@@ -732,7 +734,7 @@
 								const el = document.getElementById(id);
 								if (el) {
                                     el.style.height = calcHeight(el.value) + "px";
-							    };
+							    }
                             });
 						}
 						document.addEventListener('DOMContentLoaded', formatHeightOfTextarea);
@@ -1092,10 +1094,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row g-1 intern-container"> <!-- Hintergrund2? -->
+                    <div class="row g-1 intern-container2"> <!-- Hintergrund2? -->
                         <div class="row g-2">
                             <!-- Zeile 4 -->
-                            <div class="col-2-5">
+                            <div class="col-3">
                                 <div class="checkbox-container">
                                     <label>Gebühr frei</label> <!-- Zuzahlungsstatus (ID 77) = 1 -->
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34; value=&#34;coding&#34;</xsl:text>
@@ -1145,7 +1147,7 @@
                                     </xsl:choose>
                                 </div>
                             </div>
-                            <div class="col-2-5">
+                            <div class="col-3">
                                 <div class="checkbox-container">
                                     <label>Impfstoff</label> <!-- ID 84 -->
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
@@ -1175,9 +1177,9 @@
                             </div-->
                         </div>
                         <div class="row g-2">
-                            <div class="col-2-5">
+                            <div class="col-3">
                                 <div class="checkbox-container">
-                                    <label>Gebühr pfl.</label> <!-- Zuzahlungsstatus (ID 77) = 0 --> <!-- TODO: = 2 (kuenstliche Befruchtung (Regelung nach § 27a SGB V)) Ausgabe ?!? -->
+                                    <label>Gebühr pfl.</label> <!-- Zuzahlungsstatus (ID 77) = 0 -->
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                     <xsl:choose>
                                         <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_StatusCoPayment']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_FOR_StatusCoPayment']/fhir:code/@value=0">
@@ -1191,7 +1193,7 @@
                             </div>
                             <div class="col-2-5">
                                 <div class="checkbox-container"> <!-- Unfallkennzeichen ID 72 -->
-                                    <label>Unfall</label> <!-- TODO: Berufskrankheit ?!? -->
+                                    <label>Unfall</label>
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                     <xsl:choose>
                                         <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '1'">
@@ -1203,7 +1205,7 @@
                                     </xsl:choose>
                                 </div>
                             </div>
-                            <div class="col-2-5">
+                            <div class="col-3">
                                 <div class="checkbox-container">
                                     <label>Arbeitsunfall</label>
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
@@ -1303,7 +1305,7 @@
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='http://fhir.de/sid/kzbv/zahnarztnummer']/fhir:value/@value"/>
                                         </div>
                                     </xsl:when>
-                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']"> <!-- TODO: und Angabe ?!? -->
+                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']">
                                         <label>Telematik-ID</label> <!-- (ID 42c/52c) -->
                                         <div class="text-input">
                                             <xsl:value-of select="fhir:entry/fhir:resource/fhir:Practitioner[fhir:id/@value=$author_id]/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/telematik-id']/fhir:value/@value"/>
@@ -2585,7 +2587,7 @@
                                                 </xsl:choose>
                                             </xsl:if>
                                             <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:patientInstruction/@value">
-                                                <label>Dosierung (Anwendungshinweise)</label> <!-- TODO  Textausgabe?-->
+                                                <label>Dosierung (Anwendungshinweise)</label>
                                                 <textarea id="resize_ta22" class="text-input" rows="auto" readonly="">
                                                     <xsl:value-of select="fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:dosageInstruction/fhir:patientInstruction/@value"/>
                                                 </textarea>
@@ -2620,7 +2622,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.7</b>
+                Stylesheet: <b>v1.8</b>
             </p>
         </div>
 
