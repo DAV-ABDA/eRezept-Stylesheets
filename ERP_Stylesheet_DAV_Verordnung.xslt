@@ -586,7 +586,9 @@
                         flex-direction: row-reverse; /* Position checkbox to the left and label to the right */
                         margin-left: 0px;
                         font-size: 10px;
-                        color: var(--text-color-ges);
+                        color: var(--text-color-inputs);
+                        vertical-align;
+                        margin-top-min-1;
                     }
 
                     .checkbox-container > label {
@@ -594,6 +596,7 @@
                         margin-right: 0; /* Remove right margin to ensure consistency */
                         font-size: 10px; /* font-weight: bold; */
                         width:100%;
+                        color: var(--text-color-ges);
                     }
 
                     /* Hide the default checkbox */
@@ -653,11 +656,18 @@
                         padding:5mm;
                     }
 
-                    .col-1-5{
+                    .row .col-1-5{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start; /* Aligns all checkboxes to the left edge */
                     flex: 0 0 auto;
                     width: 12.5%;
                     }
-                    .col-2-5{
+
+                    .row .col-2-5{
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start; /* Aligns all checkboxes to the left edge */
                     flex: 0 0 auto;
                     width: 20.8333333333333%;
                     }
@@ -1085,14 +1095,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8">
-                            <div class="input-container">
-                                <label>Rezept ID</label> <!-- ID 5 -->
-                                <div class="text-input">
-                                    <xsl:value-of select="fhir:identifier/fhir:value/@value"/>
+                        <xsl:choose>
+                            <xsl:when test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:basedOn/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/emp-identifier']">
+                                <!-- Ausgabe der Referenz? xsl:value-of select="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:basedOn/fhir:identifier[fhir:system/@value='https://gematik.de/fhir/sid/emp-identifier']/fhir:value/@value"/-->
+                                <div class="col-6">
+                                    <div class="input-container">
+                                        <label>Rezept ID</label> <!-- ID 5 -->
+                                        <div class="text-input">
+                                            <xsl:value-of select="fhir:identifier/fhir:value/@value"/>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                <div class="col-2">
+                                    <div class="checkbox-container">
+                                        <label>eMP-Identifier</label> <!-- ID 188 -->
+                                        <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
+                                            <xsl:text disable-output-escaping='yes'>checked/&gt;</xsl:text> <!-- Ja -->
+                                    </div>
+                                </div>
+                            </xsl:when>
+                            <xsl:otherwise>
+                                <div class="col-8">
+                                    <div class="input-container">
+                                        <label>Rezept ID</label> <!-- ID 5 -->
+                                        <div class="text-input">
+                                            <xsl:value-of select="fhir:identifier/fhir:value/@value"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </xsl:otherwise>
+                        </xsl:choose>
                     </div>
                     <div class="row g-1 intern-container2"> <!-- Hintergrund2? -->
                         <div class="row g-2">
@@ -1111,7 +1143,7 @@
                                     </xsl:choose>
                                 </div>
                             </div>
-                            <div class="col-2-5">
+                            <div class="col-2">
                                 <div class="checkbox-container">
                                     <xsl:if test="//fhir:entry/fhir:resource/fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_BVG']">
                                         <label>BVG</label> <!-- ID 85  -->
@@ -1133,7 +1165,7 @@
                                     </xsl:choose>
                                 </div>
                             </div>
-                            <div class="col-2-5">
+                            <div class="col-3">
                                 <div class="checkbox-container">
                                     <label>Noctu</label> <!-- (ID 82) -->
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
@@ -1147,7 +1179,7 @@
                                     </xsl:choose>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div class="checkbox-container">
                                     <label>Impfstoff</label> <!-- ID 84 -->
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
@@ -1191,7 +1223,7 @@
                                     </xsl:choose>
                                 </div>
                             </div>
-                            <div class="col-2-5">
+                            <div class="col-2">
                                 <div class="checkbox-container"> <!-- Unfallkennzeichen ID 72 -->
                                     <label>Unfall</label>
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
@@ -1207,7 +1239,7 @@
                             </div>
                             <div class="col-3">
                                 <div class="checkbox-container">
-                                    <label>Arbeitsunfall</label>
+                                    <label>Arbeitsunfall</label> <!-- Unfallkennzeichen ID 72 -->
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                     <xsl:choose>
                                         <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '2'">
@@ -1219,9 +1251,9 @@
                                     </xsl:choose>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
                                 <div class="checkbox-container">
-                                    <label>Berufskrankheit</label>
+                                    <label>Berufskrankheit</label> <!-- Unfallkennzeichen ID 72 -->
                                     <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                     <xsl:choose>
                                         <xsl:when test="//fhir:MedicationRequest/fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_FOR_Accident']/fhir:extension[@url='Unfallkennzeichen']/fhir:valueCoding/fhir:code/@value = '4'">
@@ -1698,7 +1730,7 @@
                             <xsl:when test="//fhir:Medication/fhir:code/fhir:coding/fhir:system[@value='http://fhir.de/CodeSystem/ifa/pzn']">
                                 <div class="row g-1">
                                     <div class="col-1">
-                                        <div class="checkbox-container vertical-align">
+                                        <div class="checkbox-container">
                                             <label>Aut Idem</label> <!-- ID 101 -->
                                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                             <xsl:choose>
@@ -2148,7 +2180,7 @@
                             <xsl:when test="//fhir:Medication/fhir:code/fhir:coding/fhir:system[@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Type']/following-sibling::fhir:code[@value='wirkstoff']">
                                 <div class="row g-1">
                                     <div class="col-1">
-                                        <div class="checkbox-container vertical-align">
+                                        <div class="checkbox-container">
                                             <label>Aut Idem</label> <!-- ID 101 -->
                                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                             <xsl:choose>
@@ -2293,7 +2325,7 @@
                             <xsl:when test="//fhir:Medication/fhir:code/fhir:coding/fhir:system[@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Type']/following-sibling::fhir:code[@value='freitext']">
                                 <div class="row g-1">
                                     <div class="col-1">
-                                        <div class="checkbox-container vertical-align">
+                                        <div class="checkbox-container">
                                             <label>Aut Idem</label> <!-- ID 101 -->
                                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                             <xsl:choose>
@@ -2367,7 +2399,7 @@
                             <xsl:when test="//fhir:Medication/fhir:code/fhir:coding/fhir:system[@value='https://fhir.kbv.de/CodeSystem/KBV_CS_ERP_Medication_Type']/following-sibling::fhir:code[@value='rezeptur']">
                                 <div class="row g-1">
                                     <div class="col-1">
-                                        <div class="checkbox-container vertical-align">
+                                        <div class="checkbox-container">
                                             <label>Aut Idem</label> <!-- ID 101 -->
                                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                                             <xsl:choose>
@@ -2622,7 +2654,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.8</b>
+                Stylesheet: <b>v1.9</b>
             </p>
         </div>
 
@@ -2685,8 +2717,8 @@
         <xsl:choose> <!-- T-Rezept -->
             <xsl:when test="//fhir:extension[@url='https://fhir.kbv.de/StructureDefinition/KBV_EX_ERP_Teratogenic']">
                 <div class="row g-1">
-                    <div class="col-2">
-                        <div class="checkbox-container vertical-align">
+                    <div class="col-1-5">
+                        <div class="checkbox-container">
                             <label>Off-Label</label> <!-- ID 167 -->
                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                             <xsl:choose>
@@ -2700,7 +2732,7 @@
                         </div>
                     </div>
                     <div class="col-2">
-                        <div class="checkbox-container vertical-align">
+                        <div class="checkbox-container">
                             <label>gebärfähige Frau</label> <!-- ID 168 -->
                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                             <xsl:choose>
@@ -2713,8 +2745,8 @@
                             </xsl:choose>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="checkbox-container vertical-align">
+                    <div class="col-2-5">
+                        <div class="checkbox-container">
                             <label>Einhaltung Sicherheitsmaßnahmen</label> <!-- ID 171 -->
                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                             <xsl:choose>
@@ -2727,8 +2759,8 @@
                             </xsl:choose>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="checkbox-container vertical-align">
+                    <div class="col-2-5">
+                        <div class="checkbox-container">
                             <label>Aushändigung Informationsmaterialien</label> <!-- ID 172 -->
                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                             <xsl:choose>
@@ -2741,8 +2773,8 @@
                             </xsl:choose>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="checkbox-container vertical-align">
+                    <div class="col-1-5">
+                        <div class="checkbox-container">
                             <label>Erklärung Sachkenntnis</label> <!-- ID 173 -->
                             <xsl:text disable-output-escaping='yes'>&lt;input type=&#34;checkbox&#34; class=&#34;chckbox&#34; disabled="disabled" name=&#34;terms&#34;</xsl:text>
                             <xsl:choose>
