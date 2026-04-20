@@ -1367,17 +1367,25 @@
                         <div class="col-12">
                             <div class="input-container">
                                 <label>Einrichtung</label> <!-- Name der Einrichtung (ID 62) -->
-                                <xsl:choose>
-                                    <xsl:when test="$anonymize='true'">
-                                        <div class="text-input">
-                                            <xsl:value-of select="'***'"/>
-                                        </div>
+                                <xsl:choose> <!-- Wenn Attribut nicht angegeben, dann Farbhintergrund -->
+                                    <xsl:when test="fhir:entry/fhir:resource/fhir:Organization/fhir:name">
+                                        <xsl:choose>
+                                            <xsl:when test="$anonymize='true'">
+                                                <div class="text-input">
+                                                    <xsl:value-of select="'***'"/>
+                                                </div>
+                                            </xsl:when>
+                                            <xsl:otherwise>
+                                                <!-- normale Ausgabe -->
+                                                <textarea class="text-input" readonly="">
+                                                    <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
+                                                </textarea>
+                                            </xsl:otherwise>
+                                        </xsl:choose>
                                     </xsl:when>
                                     <xsl:otherwise>
-                                        <!-- normale Ausgabe -->
-                                        <textarea class="text-input" readonly="">
-                                            <xsl:value-of select="fhir:entry/fhir:resource/fhir:Organization/fhir:name/@value"/>
-                                        </textarea>
+                                        <xsl:text disable-output-escaping='yes'>&lt;div class=&quot;text-input-gray&quot;&gt;</xsl:text>
+                                        <xsl:text disable-output-escaping='yes'>&lt;/div&gt;</xsl:text>
                                     </xsl:otherwise>
                                 </xsl:choose>
                             </div>
@@ -2785,7 +2793,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.15</b>
+                Stylesheet: <b>v1.16</b>
             </p>
         </div>
 
