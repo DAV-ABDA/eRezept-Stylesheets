@@ -727,49 +727,50 @@
                                 <label>DMP-Kennzeichen</label> <!-- ID 16 -->
                                 <div class="text-input">
                                     <xsl:variable name="dmpkz" select="fhir:entry/fhir:resource/fhir:Coverage/fhir:extension[@url='http://fhir.de/StructureDefinition/gkv/dmp-kennzeichen']/fhir:valueCoding[fhir:system/@value='https://fhir.kbv.de/CodeSystem/KBV_CS_SFHIR_KBV_DMP']/fhir:code/@value"/>
-                                    <xsl:choose>
-                                        <xsl:when test="$dmpkz=00"> nicht gesetzt</xsl:when>
-                                        <xsl:when test="$dmpkz=01"> DM2</xsl:when>
-                                        <xsl:when test="$dmpkz=02"> BRK</xsl:when>
-                                        <xsl:when test="$dmpkz=03"> KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=04"> DM1</xsl:when>
-                                        <xsl:when test="$dmpkz=05"> Asthma</xsl:when>
-                                        <xsl:when test="$dmpkz=06"> COPD</xsl:when>
-                                        <xsl:when test="$dmpkz=07"> HI</xsl:when>
-                                        <xsl:when test="$dmpkz=08"> Depression</xsl:when>
-                                        <xsl:when test="$dmpkz=09"> Rueckenschmerz</xsl:when>
-                                        <xsl:when test="$dmpkz=10"> Rheuma</xsl:when>
-                                        <xsl:when test="$dmpkz=11"> Osteoporose</xsl:when>
-                                        <xsl:when test="$dmpkz=12"> Adipositas</xsl:when>
-                                        <xsl:when test="$dmpkz=30"> Diabetes Typ 2 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=31"> Asthma und Diabetes Typ 2</xsl:when>
-                                        <xsl:when test="$dmpkz=32"> COPD und Diabetes Typ 2</xsl:when>
-                                        <xsl:when test="$dmpkz=33"> COPD und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=34"> COPD, Diabetes Typ 2 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=35"> Asthma und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=36"> Asthma, Diabetes Typ 2 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=37"> Brustkrebs und Diabetes Typ 2</xsl:when>
-                                        <xsl:when test="$dmpkz=38"> Diabetes Typ 1 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=39"> Asthma und Diabetes Typ 1</xsl:when>
-                                        <xsl:when test="$dmpkz=40"> Asthma und Brustkrebs</xsl:when>
-                                        <xsl:when test="$dmpkz=41"> Brustkrebs und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=42"> Brustkrebs und COPD</xsl:when>
-                                        <xsl:when test="$dmpkz=43"> COPD und Diabetes Typ 1</xsl:when>
-                                        <xsl:when test="$dmpkz=44"> Brustkrebs, Diabetes Typ 2 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=45"> Asthma, Brustkrebs und Diabetes Typ 2</xsl:when>
-                                        <xsl:when test="$dmpkz=46"> Brustkrebs und Diabetes Typ 1</xsl:when>
-                                        <xsl:when test="$dmpkz=47"> COPD, Diabetes Typ 1 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=48"> Brustkrebs, COPD und Diabetes Typ 2</xsl:when>
-                                        <xsl:when test="$dmpkz=49"> Asthma, Diabetes Typ 1 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=50"> Asthma, Brustkrebs und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=51"> Brustkrebs, COPD und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=52"> Brustkrebs, COPD, Diabetes Typ 2 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=53"> Asthma, Brustkrebs, Diabetes Typ 2 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=54"> Brustkrebs, Diabetes Typ 1 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=55"> Asthma, Brustkrebs und Diabetes Typ 1</xsl:when>
-                                        <xsl:when test="$dmpkz=56"> Asthma, Brustkrebs, Diabetes Typ 1 und KHK</xsl:when>
-                                        <xsl:when test="$dmpkz=57"> Brustkrebs, COPD und Diabetes Typ 1</xsl:when>
-                                        <xsl:when test="$dmpkz=58"> Brustkrebs, COPD, Diabetes Typ 1 und KHK</xsl:when>
+                                    <xsl:choose> <!-- S_KBV_DMP  v1.07 Stand: 01.10.2026 -->
+                                        <xsl:when test="$dmpkz=00">nicht gesetzt</xsl:when>
+                                        <xsl:when test="$dmpkz=01">DM2</xsl:when>
+                                        <xsl:when test="$dmpkz=02">BRK</xsl:when>
+                                        <xsl:when test="$dmpkz=03">KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=04">DM1</xsl:when>
+                                        <xsl:when test="$dmpkz=05">Asthma</xsl:when>
+                                        <xsl:when test="$dmpkz=06">COPD</xsl:when>
+                                        <xsl:when test="$dmpkz=07">HI</xsl:when>
+                                        <xsl:when test="$dmpkz=08">Depression</xsl:when>
+                                        <xsl:when test="$dmpkz=09">Rueckenschmerz</xsl:when>
+                                        <xsl:when test="$dmpkz=10">Rheuma</xsl:when>
+                                        <xsl:when test="$dmpkz=11">Osteoporose</xsl:when>
+                                        <xsl:when test="$dmpkz=12">Adipositas Erwachsene</xsl:when><!-- KBV_CS_SFHIR_KBV_DMP_V1.07 -->
+                                        <xsl:when test="$dmpkz=13">Adipositas Kinder und Jugendliche</xsl:when><!-- KBV_CS_SFHIR_KBV_DMP_V1.07 -->
+                                        <xsl:when test="$dmpkz=30">Diabetes Typ 2 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=31">Asthma und Diabetes Typ 2</xsl:when>
+                                        <xsl:when test="$dmpkz=32">COPD und Diabetes Typ 2</xsl:when>
+                                        <xsl:when test="$dmpkz=33">COPD und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=34">COPD, Diabetes Typ 2 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=35">Asthma und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=36">Asthma, Diabetes Typ 2 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=37">Brustkrebs und Diabetes Typ 2</xsl:when>
+                                        <xsl:when test="$dmpkz=38">Diabetes Typ 1 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=39">Asthma und Diabetes Typ 1</xsl:when>
+                                        <xsl:when test="$dmpkz=40">Asthma und Brustkrebs</xsl:when>
+                                        <xsl:when test="$dmpkz=41">Brustkrebs und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=42">Brustkrebs und COPD</xsl:when>
+                                        <xsl:when test="$dmpkz=43">COPD und Diabetes Typ 1</xsl:when>
+                                        <xsl:when test="$dmpkz=44">Brustkrebs, Diabetes Typ 2 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=45">Asthma, Brustkrebs und Diabetes Typ 2</xsl:when>
+                                        <xsl:when test="$dmpkz=46">Brustkrebs und Diabetes Typ 1</xsl:when>
+                                        <xsl:when test="$dmpkz=47">COPD, Diabetes Typ 1 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=48">Brustkrebs, COPD und Diabetes Typ 2</xsl:when>
+                                        <xsl:when test="$dmpkz=49">Asthma, Diabetes Typ 1 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=50">Asthma, Brustkrebs und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=51">Brustkrebs, COPD und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=52">Brustkrebs, COPD, Diabetes Typ 2 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=53">Asthma, Brustkrebs, Diabetes Typ 2 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=54">Brustkrebs, Diabetes Typ 1 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=55">Asthma, Brustkrebs und Diabetes Typ 1</xsl:when>
+                                        <xsl:when test="$dmpkz=56">Asthma, Brustkrebs, Diabetes Typ 1 und KHK</xsl:when>
+                                        <xsl:when test="$dmpkz=57">Brustkrebs, COPD und Diabetes Typ 1</xsl:when>
+                                        <xsl:when test="$dmpkz=58">Brustkrebs, COPD, Diabetes Typ 1 und KHK</xsl:when>
                                     </xsl:choose>
                                     <xsl:text disable-output-escaping='yes'> (</xsl:text>
                                     <xsl:value-of select="($dmpkz)"/>
@@ -1933,7 +1934,7 @@
                                             <label>Darreichungsform</label>
                                             <xsl:variable name="_dform" select="fhir:entry/fhir:resource/fhir:Medication/fhir:form/fhir:coding/fhir:code/@value"/>
                                             <textarea class="text-input" readonly="">
-                                                <xsl:choose> <!-- S_KBV_DARREICHUNGSFORM  v1.15 Stand: 01.04.2025 -->
+                                                <xsl:choose> <!-- S_KBV_DARREICHUNGSFORM  v1.16 Stand: 01.07.2026 -->
                                                     <xsl:when test="$_dform='---'">keine Darreichungsform</xsl:when>
                                                     <xsl:when test="$_dform='AEO'">Ätherisches Öl</xsl:when>
                                                     <xsl:when test="$_dform='AMP'">Ampullen</xsl:when>
@@ -2793,7 +2794,7 @@
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.16</b>
+                Stylesheet: <b>v1.17</b>
             </p>
         </div>
 
