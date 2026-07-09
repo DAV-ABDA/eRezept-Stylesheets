@@ -2790,11 +2790,11 @@
                     </div>
                 </div>
             </div>
-            <p align="right">Instanzversion:
+            <p align="right">Profilversion:
                 <b> <xsl:call-template name="getVersion">
                     <xsl:with-param name="url" select="//fhir:meta/fhir:profile/@value"/>
                 </xsl:call-template></b> PRF.NR.:<b> <xsl:value-of select="//fhir:Composition/fhir:author[fhir:type/@value='Device']/fhir:identifier/fhir:value/@value"/></b>
-                Stylesheet: <b>v1.17</b>
+                Stylesheet: <b>v1.18</b>
             </p>
         </div>
 
